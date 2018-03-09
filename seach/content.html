@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+
+        #box{
+            width:840px;
+            background-color: #555;
+            color:#ccc;
+            margin:auto;
+            padding:50px 80px;
+            border-radius:10px;
+            height:500px;
+        }
+
+        ul{
+            list-style: none;
+            padding: 0;
+        }
+        p{
+            border-bottom:1px solid #ccc;
+            padding-bottom:20px;
+        }
+		.ccon a{
+			margin: 20px;
+			text-decoration: none;
+			color: #000;
+		}
+		.ccon .active{
+			color: red;
+		}
+    </style>
+</head>
+<body>
+<div class="ccon">
+	<!--<a href="javascript:;">社区招聘</a>
+	<a href="javascript:;">校园招聘</a>-->
+</div>
+<div id="box">
+
+    <!--<h3>职位要求：前端工程师111 【社会招聘】 需求人数：2名</h3>
+    <p>面议 / 上海 / 3年以上 / 本科以上 / 3名</p>
+
+    <h4>岗位要求:</h4>
+    <ul>
+        <li>1.计算机或相关专业本科以上学历；</li>
+        <li>1.计算机或相关专业本科以上学历；</li>
+        <li>1.计算机或相关专业本科以上学历；</li>
+        <li>1.计算机或相关专业本科以上学历；</li>
+        <li>1.计算机或相关专业本科以上学历；</li>
+        <li>1.计算机或相关专业本科以上学历；</li>
+    </ul>
+
+    <h4>工作职责:</h4>
+    <ul>
+        <li>1.计算机或相关专业本科以上学历；</li>
+    </ul>-->
+
+
+</div>
+
+
+<script src="js/data.js" type="text/javascript"></script>
+<script>
+//侧边栏
+let ccon=document.querySelector('.ccon');
+//内容box
+let box=document.querySelector('#box');
+//获取search值
+let search=location.search.slice(1).split('=')[1];
+//获取hash值
+let hash=location.hash.slice(1).split('=')[1];
+//找到相应数组渲染页面
+let arr=data[search][hash]
+//选项a标签
+let as=ccon.getElementsByTagName('a')
+let str='';
+for (let i=0;i<data.list.length;i++) {
+	str+=`<a href="javascript:;">${data.list[i].name}</a>`
+}
+ccon.innerHTML=str
+if (search=='sociology') {
+	as[0].className='active'
+} else{
+	as[1].className='active'
+}
+str='';
+	str=`<h3>${arr.title}</h3>
+    <p>${arr.content.pay}/${arr.content.address} / ${arr.content.exper}/${arr.content.education}/${arr.content.num}</p>
+    <h4>岗位要求:</h4><ul>`
+    for (let i=0;i<arr.content.requirement.length;i++) {
+    	str+=`<li>${arr.content.requirement[i]}</li>`
+    }
+    str+=`</ul><h4>工作职责:</h4><ul>`
+   	for (let i=0;i<arr.content.duty.length;i++) {
+   		str+=`<li>${arr.content.duty[i]}</li>`
+   	}
+    str+='</ul>'
+	box.innerHTML=str;
+for (let i=0;i<as.length;i++) {
+	as[i].type=data.list[i].type;
+	as[i].onclick=function(){
+		if(this.type==search){
+			let m=Math.floor(hash/2);
+			location.href='zhaop.html?l='+this.type+'#p='+m;
+		}else{
+			location.href='zhaop.html?l='+this.type+'#p=1';
+		}
+	}
+}
+</script>
+</body>
+</html>
